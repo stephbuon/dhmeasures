@@ -9,14 +9,16 @@ partial_jsd <- function(p, q) {
 #' @export
 find_jsd <- function(tokenized_hansard_1850, tokenized_hansard_1860, period) {
 
+  period <- dplyr::enquo(period)
+
   x1 <- tokenized_hansard_1850 %>%
-    dplyr::count(word, period)
+    dplyr::count(word, !!period)
+
   period_1 <- as.character(x1[1,2])
   x1 <-  dplyr::mutate(x1, "prob_{period_1}" := philentropy::estimate.probability(n))
 
-
   x2 <- tokenized_hansard_1860 %>%
-    dplyr::count(word, period)
+    dplyr::count(word, !!period)
   period_2 <- as.character(x2[1,2])
   x2 <-  dplyr::mutate(x2, "prob_{period_2}" := philentropy::estimate.probability(n))
 
