@@ -1,5 +1,5 @@
 #' @export
-jsd <- function(p, m) {
+jsd_score <- function(p, m) {
   p* log(p/m) }
 
 #' @export
