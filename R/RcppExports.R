@@ -10,25 +10,6 @@
 #' @param word Name of data frame column containing words
 #' @param n Name of data frame column containing word count in text group
 #' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
-#' @examples
-#' # Load example Jane Austen dataset
-#' require(dplyr)
-#' require(janeaustenr)
-#' require(tidytext)
-#' data = austen_books() %>%
-#'     unnest_tokens(word, text) %>%
-#'     count(book, word, sort = TRUE)
-#' # View example dataset
-#' head(data)
-#' 
-#' # Calculate JSD for given words and groups
-#' output = jsd(
-#'   data, 
-#'   group = "book", 
-#'   group_list = c("Mansfield Park", "Emma", "Pride & Prejudice"), 
-#'   word_list = c("person", "age")
-#' )
-#' head(output)
 #' @useDynLib dhmeasures
 #' @importFrom Rcpp evalCpp
 #' @exportPattern ^[[:alpha:]]+
@@ -45,24 +26,6 @@ jsd <- function(text, group_list = as.character( c()), word_list = as.character(
 #' @param word Name of data frame column containing words
 #' @param n Name of data frame column containing word count in text group
 #' @return Data frame containing a column containing unique words and columns for log likelihood scores for each group
-#' @examples
-#' # Load example Jane Austen dataset
-#' require(dplyr)
-#' require(janeaustenr)
-#' require(tidytext)
-#' data = austen_books() %>%
-#'     unnest_tokens(word, text) %>%
-#'     count(book, word, sort = TRUE)
-#' # View example dataset
-#' head(data)
-#' 
-#' # Compute log likelihood
-#' output = log_likelihood(
-#'   data, 
-#'   group = "book", 
-#'   group_list = c("Mansfield Park", "Emma", "Pride & Prejudice"), 
-#'   word_list = c("person", "age")
-#' )
 #' head(output)
 #' @useDynLib dhmeasures
 #' @importFrom Rcpp evalCpp

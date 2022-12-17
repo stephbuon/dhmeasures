@@ -50,24 +50,6 @@ void getGroupsWords();
 //' @param word Name of data frame column containing words
 //' @param n Name of data frame column containing word count in text group
 //' @return Data frame containing a column containing unique words and columns for log likelihood scores for each group
-//' @examples
-//' # Load example Jane Austen dataset
-//' require(dplyr)
-//' require(janeaustenr)
-//' require(tidytext)
-//' data = austen_books() %>%
-//'     unnest_tokens(word, text) %>%
-//'     count(book, word, sort = TRUE)
-//' # View example dataset
-//' head(data)
-//' 
-//' # Compute log likelihood
-//' output = log_likelihood(
-//'   data, 
-//'   group = "book", 
-//'   group_list = c("Mansfield Park", "Emma", "Pride & Prejudice"), 
-//'   word_list = c("person", "age")
-//' )
 //' head(output)
 //' @useDynLib dhmeasures
 //' @importFrom Rcpp evalCpp
@@ -104,7 +86,7 @@ DataFrame log_likelihood(DataFrame text, CharacterVector group_list = CharacterV
 // Calculate the log likelihood score for one word in one group
 double calcLL(const String& g, const String& w) {
     // Variable for word count in group
-    int a;
+    unsigned long long a;
     // Check if group and word combo doesn't exist in counts map
     if (counts[g].find(w) == counts[g].end()) {
         // If not found, set a = 0
@@ -114,11 +96,11 @@ double calcLL(const String& g, const String& w) {
         a = counts[g][w];
     }
     // Word count in remaining groups
-    int b = wordCount[w] - a;
+    unsigned long long b = wordCount[w] - a;
     // Remaining word count in group
-    int c = groupCount[g] - a;
+    unsigned long long c = groupCount[g] - a;
     // Remaining word count in remaining groups
-    int d = totalCount - a - b - c;
+    unsigned long long d = totalCount - a - b - c;
 
     // Calculate E1
     double E1 = (double)((a + c) * (a + b)) / totalCount;

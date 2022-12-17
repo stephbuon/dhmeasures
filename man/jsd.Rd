@@ -32,23 +32,3 @@ Data frame containing a column containing unique words and columns for JSD score
 \description{
 Calculates the JSD score for each word between group pairings. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
 }
-\examples{
-# Load example Jane Austen dataset
-require(dplyr)
-require(janeaustenr)
-require(tidytext)
-data = austen_books() \%>\%
-    unnest_tokens(word, text) \%>\%
-    count(book, word, sort = TRUE)
-# View example dataset
-head(data)
-
-# Calculate JSD for given words and groups
-output = jsd(
-  data, 
-  group = "book", 
-  group_list = c("Mansfield Park", "Emma", "Pride & Prejudice"), 
-  word_list = c("person", "age")
-)
-head(output)
-}
