@@ -12,6 +12,6 @@
   
 }
 \author{
-  Ryan Schaefer
+  Steph Buongiorno and Ryan Schaefer
 }
 \keyword{ package }

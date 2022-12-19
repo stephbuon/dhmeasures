@@ -49,6 +49,19 @@ void clearVars();
 //' @param word Name of data frame column containing words
 //' @param n Name of data frame column containing word count in text group
 //' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
+//' @examples
+//' # Load example Hansard 1820 dataset
+//' data(hansard_1820_example)
+//' head(hansard_1820_example)
+//' 
+//' # Calculate JSD for given words and groups
+//' output = jsd(
+//'   hansard_1820_example, 
+//'   group = "book", 
+//'   group_list = c("Mansfield Park", "Emma", "Pride & Prejudice"), 
+//'   word_list = c("person", "age")
+//' )
+//' head(output)
 //' @useDynLib dhmeasures
 //' @importFrom Rcpp evalCpp
 //' @exportPattern ^[[:alpha:]]+
