@@ -28,8 +28,21 @@ log_likelihood(
 }
 \value{
 Data frame containing a column containing unique words and columns for log likelihood scores for each group
-head(output)
 }
 \description{
 Calculates word distinctiveness using the log likelihood algorithm. You input a data frame with columns for the word, the text group, and the number of times that word appears in that group. The column names are set to "word", "group", and "n" by default but they can be changed using the parameters word, group, and n. If any of these columns are not found, the function will not work. The output will be a new data frame with a column called "word" containing all unique words and subsequent columns for all unique groups with the name of that group. The data frame will contain the log likelihood scores for each word in each group. The larger a log likelihood score is, the more distinctive that word is to that group.
+}
+\examples{
+# Load example Hansard 1820 dataset
+data(hansard_1820_example)
+head(hansard_1820_example)
+
+# Compute log likelihood
+output = log_likelihood(
+  hansard_1820_example, 
+  group = "speaker", 
+  group_list = c("Mr. Hume", "Mr. Brougham"), 
+  word_list = c("house", "person")
+)
+head(output)
 }

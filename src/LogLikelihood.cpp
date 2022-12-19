@@ -50,6 +50,7 @@ void getGroupsWords();
 //' @param word Name of data frame column containing words
 //' @param n Name of data frame column containing word count in text group
 //' @return Data frame containing a column containing unique words and columns for log likelihood scores for each group
+//' @examples
 //' # Load example Hansard 1820 dataset
 //' data(hansard_1820_example)
 //' head(hansard_1820_example)
@@ -57,9 +58,9 @@ void getGroupsWords();
 //' # Compute log likelihood
 //' output = log_likelihood(
 //'   hansard_1820_example, 
-//'   group = "book", 
-//'   group_list = c("Mansfield Park", "Emma", "Pride & Prejudice"), 
-//'   word_list = c("person", "age")
+//'   group = "speaker", 
+//'   group_list = c("Mr. Hume", "Mr. Brougham"), 
+//'   word_list = c("house", "person")
 //' )
 //' head(output)
 //' @useDynLib dhmeasures

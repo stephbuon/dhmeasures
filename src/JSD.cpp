@@ -57,9 +57,9 @@ void clearVars();
 //' # Calculate JSD for given words and groups
 //' output = jsd(
 //'   hansard_1820_example, 
-//'   group = "book", 
-//'   group_list = c("Mansfield Park", "Emma", "Pride & Prejudice"), 
-//'   word_list = c("person", "age")
+//'   group = "speaker", 
+//'   group_list = c("Mr. Hume", "Mr. Brougham"), 
+//'   word_list = c("house", "person")
 //' )
 //' head(output)
 //' @useDynLib dhmeasures
