@@ -1,6 +1,5 @@
 #include <Rcpp.h>
 #include <map>
-#include <cstring>
 using namespace Rcpp;
 using namespace std;
 
@@ -53,12 +52,12 @@ void clearVars();
 //' # Load example Hansard 1820 dataset
 //' data(hansard_1820_example)
 //' head(hansard_1820_example)
-//' 
+//'
 //' # Calculate JSD for given words and groups
 //' output = jsd(
-//'   hansard_1820_example, 
-//'   group = "speaker", 
-//'   group_list = c("Mr. Hume", "Mr. Brougham"), 
+//'   hansard_1820_example,
+//'   group = "speaker",
+//'   group_list = c("Mr. Hume", "Mr. Brougham"),
 //'   word_list = c("house", "person")
 //' )
 //' head(output)
@@ -80,10 +79,10 @@ DataFrame jsd(DataFrame text, CharacterVector group_list = CharacterVector::crea
     // Else, use given words
     WordList = word_list;
   }
-  
+
   // Initialize wordProbs
   setWordProbs();
-  
+
   // If not enough groups given, pick for user
   if (group_list.size() < 2) {
     // Get all unique groups
@@ -104,16 +103,16 @@ DataFrame jsd(DataFrame text, CharacterVector group_list = CharacterVector::crea
       Group1 = allGroups[0];
       Group2 = allGroups[1];
     }
-    
+
     // Return results of JSD for selected pair
     jsdPair();
     // Clear private variables
     clearVars();
-    
+
     // Return results
     return results_;
   }
-  
+
   // Initialze output data frame
   DataFrame output = DataFrame::create();
   // Loop through given groups
@@ -130,16 +129,16 @@ DataFrame jsd(DataFrame text, CharacterVector group_list = CharacterVector::crea
       // Store JSD scores
       CharacterVector names = results_.names();
       String name = names[1];
-      output.push_back(results_[1], name.get_cstring());
-      
+      output.push_back(results_[1], name);
+
     }
   }
   // Add word column to output
   output.push_front(results_["word"], "word");
-  
+
   // Clear private variables
   clearVars();
-  
+
   return output;
 }
 
@@ -180,12 +179,12 @@ void getProbabilites() {
   // Initialize ints for group counts
   int count1 = 0;
   int count2 = 0;
-  
+
   // Get vectors for group, word, and count
   CharacterVector allGroups = Text_[Group_];
   CharacterVector allWords = Text_[Word_];
   NumericVector allCounts = Text_[Count_];
-  
+
   // Loop through Text_ dataframe
   for (int i = 0; i < Text_.nrows(); i++) {
     // Only include word in WordList
@@ -208,7 +207,7 @@ void getProbabilites() {
       count2 += allCounts[i];
     }
   }
-  
+
   // Loop through wordProbs
   for (auto& itr : wordProbs) {
     // Divide each count by total count for that group
@@ -221,30 +220,25 @@ void getProbabilites() {
 void jsdPair() {
   // Calculate word probabilities
   getProbabilites();
-  
+
   // Initialize vectors
   CharacterVector words;
   NumericVector scores;
-  
+
   // Loop through wordProbs
   for (const auto& itr : wordProbs) {
-    // if (itr.second.first != 0 && itr.second.second != 0) {
       // If both probabilities are nonzero, get JSD of current word
       double jsd = calcJSD(itr.second.first, itr.second.second);
       // Append word and jsd to vectors
       words.push_back(itr.first);
       scores.push_back(jsd);
-    // }
   }
-  
+
   // Use concatenated group names as column name
-  char* temp = new char[strlen(Group1.get_cstring()) + strlen(Group2.get_cstring()) + 1];
-  strcpy(temp, Group1.get_cstring());
-  strcat(temp, "_");
-  strcat(temp, Group2.get_cstring());
-  string name = temp;
-  delete[] temp;
-  
+  String name = Group1;
+  name += "_";
+  name += Group2;
+
   // Create results dataframe from vectors
   results_ = DataFrame::create(Named(Word_) = words, Named(name) = scores);
 }

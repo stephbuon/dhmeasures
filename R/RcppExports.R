@@ -14,12 +14,12 @@
 #' # Load example Hansard 1820 dataset
 #' data(hansard_1820_example)
 #' head(hansard_1820_example)
-#' 
+#'
 #' # Calculate JSD for given words and groups
 #' output = jsd(
-#'   hansard_1820_example, 
-#'   group = "speaker", 
-#'   group_list = c("Mr. Hume", "Mr. Brougham"), 
+#'   hansard_1820_example,
+#'   group = "speaker",
+#'   group_list = c("Mr. Hume", "Mr. Brougham"),
 #'   word_list = c("house", "person")
 #' )
 #' head(output)
