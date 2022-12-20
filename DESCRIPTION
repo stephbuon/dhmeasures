@@ -3,7 +3,7 @@ Title: Digital History Measures
 Version: 1.0
 Authors@R: c(
 	person("Steph", "Buongiorno", email = "steph.buon@gmail.com", role = c("aut", "cre")),
-	person("Ryan", "Schaefer", email = "rdschaefer@smu.edu", role = c("aut")))
+	person("Ryan", "Schaefer", email = "rschaefer1@me.com", role = c("aut")))
 Description: Provides statistical functions to aid in the analysis of historical corpuses. The current functions include log likelihood and JSD.
 License: MIT + file LICENSE
 Encoding: UTF-8
