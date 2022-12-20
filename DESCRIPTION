@@ -4,9 +4,12 @@ Version: 1.0
 Authors@R: c(
 	person("Steph", "Buongiorno", email = "steph.buon@gmail.com", role = c("aut", "cre"),
                comment = c(ORCID = "0000-0002-6965-0787")),
-	person("Ryan", "Schaefer", email = "rschaefer1@me.com", role = c("aut")))
+	person("Ryan", "Schaefer", email = "rschaefer1@me.com", role = c("aut"),
+	       comment = c(ORCID = "0000-0001-7694-3994")))
 Maintainer: Steph Buongiorno <steph.buon@gmail.com>
 Description: Provides statistical functions to aid in the analysis of historical corpuses. The current functions include log likelihood and JSD.
+URL: https://github.com/stephbuon/dhmeasures
+BugReports: https://github.com/stephbuon/dhmeasures/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Imports: Rcpp (>= 1.0.9)
@@ -15,5 +18,3 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 LazyData: true
 Depends: R (>= 3.5.0)
-URL: https://github.com/stephbuon/dhmeasures
-BugReports: https://github.com/stephbuon/dhmeasures/issues
