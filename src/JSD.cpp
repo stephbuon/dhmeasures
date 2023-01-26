@@ -127,12 +127,12 @@ DataFrame jsd(DataFrame text, CharacterVector group_list = CharacterVector::crea
       jsdPair();
       // Store JSD scores
       CharacterVector names = results_.names();
-      String name = names[1];
-      output.push_back(results_[1], name);
+      String name = names[0];
+      output.push_back(results_[0], name);
     }
   }
   // Add word column to output
-  output.push_front(results_["word"], "word");
+  // output.push_front(results_["word"], "word");
 
   // Clear private variables
   clearVars();
