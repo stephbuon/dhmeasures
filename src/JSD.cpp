@@ -123,7 +123,6 @@ DataFrame jsd(DataFrame text, CharacterVector group_list = CharacterVector::crea
       Group1 = group_list[i];
       Group2 = group_list[j];
       // Calculate JSD scores for group pairing
-      Rcout << "here" << endl;
       jsdPair();
       // Store JSD scores
       CharacterVector names = results_.names();
@@ -131,8 +130,6 @@ DataFrame jsd(DataFrame text, CharacterVector group_list = CharacterVector::crea
       output.push_back(results_[0], name);
     }
   }
-  // Add word column to output
-  // output.push_front(results_["word"], "word");
 
   // Clear private variables
   clearVars();
@@ -159,7 +156,7 @@ double KLD(vector<double>& P, vector<double>& Q) {
   // Calculate KLD
   double val = 0;
   for (int i = 0; i < P.size(); i++) {
-    if (Q[i] != 0) {
+    if (Q[i] != 0 && P[i] != 0) {
       val += P[i] * log(P[i] / Q[i]);
     }
   }
@@ -185,8 +182,6 @@ vector<double> findMidpoint(vector<double>& P, vector<double>& Q) {
 
 // Calculate word probabilites
 void getProbabilites() {
-  Rcout << WordList.size() << endl;
-  Rcout << "Start" << endl;
   // Initialize ints for group counts
   int count1 = 0;
   int count2 = 0;
@@ -195,12 +190,9 @@ void getProbabilites() {
   CharacterVector allGroups = Text_[Group_];
   CharacterVector allWords = Text_[Word_];
   NumericVector allCounts = Text_[Count_];
-  
-  Rcout << "Initial" << endl;
 
   // Loop through Text_ dataframe
   for (int i = 0; i < Text_.nrows(); i++) {
-    // Rcout << allGroups[i] << " " << allWords [i] << " " << allCounts[i] << endl;
     // Only include word in WordList
     if (find(WordList.begin(), WordList.end(), allWords[i]) != WordList.end()) {
       // Check if row group is either Group1 or Group2
@@ -221,8 +213,6 @@ void getProbabilites() {
       count2 += allCounts[i];
     }
   }
-  
-  Rcout << "After loop" << endl;
 
   // Loop through wordProbs
   for (auto& itr : wordProbs) {
@@ -230,16 +220,12 @@ void getProbabilites() {
     itr.second.first /= count1;
     itr.second.second /= count2;
   }
-  
-  Rcout << "Done" << endl;
 }
 
 // Calculate the JSD score for a group pairing
 void jsdPair() {
-  Rcout << "Here" << endl;
   // Calculate word probabilities
   getProbabilites();
-  Rcout << "Found probs" << endl;
 
   // Convert wordProbs to two vectors of probabilities
   vector<double> dist1;
@@ -248,11 +234,9 @@ void jsdPair() {
     dist1.push_back(itr.second.first);
     dist2.push_back(itr.second.second);
   }
-  Rcout << "Made dists" << endl;
   // Find JSD score for probability distribution pair
   double jsd = calcJSD(dist1, dist2);
   NumericVector score = { jsd };
-  Rcout << "Found JSD" << endl;
 
   // Use concatenated group names as column name
   String name = Group1;
