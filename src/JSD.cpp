@@ -22,13 +22,11 @@ DataFrame results_;
 
 // Functions
 // Jensen-Shannon Divergence
-double calcJSD(double, double);
+double calcJSD(vector<double>&, vector<double>&);
 // Kullback-Leibler Divergence
-double kld(double, double);
-// Joint Entropy
-double h(double, double);
-// Entropy
-double h(double);
+double KLD(vector<double>&, vector<double>&);
+// Find the midpoint between two probability distributions
+vector<double> findMidpoint(vector<double>&, vector<double>&);
 // Calculate word probabilites
 void getProbabilites();
 // Get JSD of one group pairing
@@ -128,13 +126,10 @@ DataFrame jsd(DataFrame text, CharacterVector group_list = CharacterVector::crea
       jsdPair();
       // Store JSD scores
       CharacterVector names = results_.names();
-      String name = names[1];
-      output.push_back(results_[1], name);
-
+      String name = names[0];
+      output.push_back(results_[0], name);
     }
   }
-  // Add word column to output
-  output.push_front(results_["word"], "word");
 
   // Clear private variables
   clearVars();
@@ -143,35 +138,46 @@ DataFrame jsd(DataFrame text, CharacterVector group_list = CharacterVector::crea
 }
 
 // Jensen-Shannon Divergence
-double calcJSD(double p, double q) {
-  // If p = 0 or q = 0, return 0
-  if (p == 0.0 || q == 0.0) {
-    return 0;
-  }
-  // Find midpoint
-  double r = (p + q) / 2;
-  // Calculate JSD
-  return (kld(p, r) + kld(q, r)) / 2;
+double calcJSD(vector<double>& P, vector<double>& Q) {
+  vector<double> M = findMidpoint(P, Q);
+  
+  double jsd = 0.5 * KLD(P, M) + 0.5 * KLD(Q, M);
+  
+  return jsd;
 }
 
 // Kullback-Leibler Divergence
-double kld(double p, double q) {
-   // Return joint entropy - entropy(P)
-   double val = h(p, q) - h(p);
-   return val;
+double KLD(vector<double>& P, vector<double>& Q) {
+  // Throw error if prob distributions are not the same length
+  if (P.size() != Q.size()) {
+    Rcerr << "Probability distributions not the same length" << endl;
+  }
+  
+  // Calculate KLD
+  double val = 0;
+  for (int i = 0; i < P.size(); i++) {
+    if (Q[i] != 0 && P[i] != 0) {
+      val += P[i] * log(P[i] / Q[i]);
+    }
+  }
+  
+  return val;
 }
 
-// Joint Entropy
-double h(double x, double y) {
-  // Return joint probability * log(joint robability)
-  double jointProb = x * y;
-  return jointProb * log(jointProb);
-}
-
-// Entropy
-double h(double x) {
-  // Return probability * log(probability)
-  return x * log(x);
+// Find the midpoint between two probability distributions
+vector<double> findMidpoint(vector<double>& P, vector<double>& Q) {
+  // Throw error if prob distributions are not the same length
+  if (P.size() != Q.size()) {
+    Rcerr << "Probability distributions not the same length" << endl;
+  }
+  
+  // Take the average of each probability
+  vector<double> mid;
+  for (int i = 0; i < P.size(); i++) {
+    mid.push_back(0.5 * (P[i] + Q[i]));
+  }
+  
+  return mid;
 }
 
 // Calculate word probabilites
@@ -221,18 +227,16 @@ void jsdPair() {
   // Calculate word probabilities
   getProbabilites();
 
-  // Initialize vectors
-  CharacterVector words;
-  NumericVector scores;
-
-  // Loop through wordProbs
+  // Convert wordProbs to two vectors of probabilities
+  vector<double> dist1;
+  vector<double> dist2;
   for (const auto& itr : wordProbs) {
-      // If both probabilities are nonzero, get JSD of current word
-      double jsd = calcJSD(itr.second.first, itr.second.second);
-      // Append word and jsd to vectors
-      words.push_back(itr.first);
-      scores.push_back(jsd);
+    dist1.push_back(itr.second.first);
+    dist2.push_back(itr.second.second);
   }
+  // Find JSD score for probability distribution pair
+  double jsd = calcJSD(dist1, dist2);
+  NumericVector score = { jsd };
 
   // Use concatenated group names as column name
   String name = Group1;
@@ -240,7 +244,7 @@ void jsdPair() {
   name += Group2;
 
   // Create results dataframe from vectors
-  results_ = DataFrame::create(Named(Word_) = words, Named(name) = scores);
+  results_ = DataFrame::create(Named(name) = score);
 }
 
 // Initialize wordProbs
