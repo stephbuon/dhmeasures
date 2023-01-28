@@ -6,10 +6,10 @@
   Digital History Measures
 }
 \description{
-  Provides statistical functions to aid in the analysis of historical corpuses.
+  Provides statistical and other helper functions to aid in the analysis of historical corpuses.
 }
 \details{
-  The current functions include Log Likelihood (log_likelihood), JSD (jsd) and Partial JSD (partial_jsd).
+  The current statistical functions include Log Likelihood (log_likelihood), JSD (jsd) and Partial JSD (partial_jsd). The current helper functions include tokenize_counts.
 }
 \author{
   Steph Buongiorno and Ryan Schaefer

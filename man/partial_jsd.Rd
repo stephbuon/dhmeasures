@@ -37,7 +37,7 @@ Calculates the partial JSD score for each word between group pairings. To use th
 data(hansard_1820_example)
 head(hansard_1820_example)
 
-# Calculate JSD for given words and groups
+# Calculate Partial JSD for given words and groups
 output = partial_jsd(
   hansard_1820_example,
   group = "speaker",

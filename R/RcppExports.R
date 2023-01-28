@@ -2,7 +2,7 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' JSD
-#' @description Calculates the JSD score for each word between group pairings. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
+#' @description Calculates the JSD score between text groups. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
 #' @param text Data frame containing data
 #' @param group_list Vector containing all groups to find pairwise JSD scores for
 #' @param word_list Vector containing all words that should be used to calculate JSD
@@ -44,7 +44,7 @@ jsd <- function(text, group_list = as.character( c()), word_list = as.character(
 #' data(hansard_1820_example)
 #' head(hansard_1820_example)
 #'
-#' # Calculate JSD for given words and groups
+#' # Calculate Partial JSD for given words and groups
 #' output = partial_jsd(
 #'   hansard_1820_example,
 #'   group = "speaker",
