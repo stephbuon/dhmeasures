@@ -353,7 +353,8 @@ void jsdPair() {
   NumericVector score = { jsd };
 
   // Use concatenated group names as column name
-  String name = Group1;
+  String name = "grp_";
+  name += Group1;
   name += "_";
   name += Group2;
 
@@ -418,7 +419,8 @@ void partialJsdPair() {
   }
   
   // Use concatenated group names as column name
-  String name = Group1;
+  String name = "grp_";
+  name += Group1;
   name += "_";
   name += Group2;
   
