@@ -5,7 +5,7 @@
 #' @description Calculates the JSD score for each word between group pairings. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
 #' @param text Data frame containing data
 #' @param group_list Vector containing all groups to find pairwise JSD scores for
-#' @param word_list Vector containing all words to find JSD scores for
+#' @param word_list Vector containing all words that should be used to calculate JSD
 #' @param group Name of data frame column containing text group
 #' @param word Name of data frame column containing words
 #' @param n Name of data frame column containing word count in text group
@@ -28,6 +28,35 @@
 #' @exportPattern ^[[:alpha:]]+
 jsd <- function(text, group_list = as.character( c()), word_list = as.character( c()), group = "group", word = "word", n = "n") {
     .Call('_dhmeasures_jsd', PACKAGE = 'dhmeasures', text, group_list, word_list, group, word, n)
+}
+
+#' Partial JSD
+#' @description Calculates the partial JSD score for each word between group pairings. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
+#' @param text Data frame containing data
+#' @param group_list Vector containing all groups to find pairwise JSD scores for
+#' @param word_list Vector containing all words to find JSD scores for
+#' @param group Name of data frame column containing text group
+#' @param word Name of data frame column containing words
+#' @param n Name of data frame column containing word count in text group
+#' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
+#' @examples
+#' # Load example Hansard 1820 dataset
+#' data(hansard_1820_example)
+#' head(hansard_1820_example)
+#'
+#' # Calculate JSD for given words and groups
+#' output = partial_jsd(
+#'   hansard_1820_example,
+#'   group = "speaker",
+#'   group_list = c("Mr. Hume", "Mr. Brougham"),
+#'   word_list = c("house", "person")
+#' )
+#' head(output)
+#' @useDynLib dhmeasures
+#' @importFrom Rcpp evalCpp
+#' @exportPattern ^[[:alpha:]]+
+partial_jsd <- function(text, group_list = as.character( c()), word_list = as.character( c()), group = "group", word = "word", n = "n") {
+    .Call('_dhmeasures_partial_jsd', PACKAGE = 'dhmeasures', text, group_list, word_list, group, word, n)
 }
 
 #' Log Likelihood

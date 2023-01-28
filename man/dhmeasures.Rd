@@ -9,7 +9,7 @@
   Provides statistical functions to aid in the analysis of historical corpuses.
 }
 \details{
-  The current functions include log likelihood (log_likelihood) and JSD (jsd).
+  The current functions include Log Likelihood (log_likelihood), JSD (jsd) and Partial JSD (partial_jsd).
 }
 \author{
   Steph Buongiorno and Ryan Schaefer

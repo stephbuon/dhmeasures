@@ -20,28 +20,38 @@ map<String, pair<double, double>> wordProbs;
 // Map to hold final results
 DataFrame results_;
 
-// Functions
+// Regular JSD functions
 // Jensen-Shannon Divergence
 double calcJSD(vector<double>&, vector<double>&);
 // Kullback-Leibler Divergence
 double KLD(vector<double>&, vector<double>&);
-// Find the midpoint between two probability distributions
-vector<double> findMidpoint(vector<double>&, vector<double>&);
-// Calculate word probabilites
-void getProbabilites();
 // Get JSD of one group pairing
 void jsdPair();
+
+// Partial JSD functions
+// Jensen-Shannon Divergence
+double calcPartialJSD(const double&, const double&);
+// Kullback-Leibler Divergence
+double partialKLD(const double&, const double&);
+// Get JSD of one group pairing
+void partialJsdPair();
+
+// General functions
 // Initialize wordProbs
 void setWordProbs();
 // Clear private variables
 void clearVars();
+// Find the midpoint between two probability distributions
+vector<double> findMidpoint(vector<double>&, vector<double>&);
+// Calculate word probabilites
+void getProbabilites();
 
-// Exported function
+// Exported regular JSD function
 //' JSD
-//' @description Calculates the JSD score for each word between group pairings. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
+//' @description Calculates the JSD score between text groups. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
 //' @param text Data frame containing data
 //' @param group_list Vector containing all groups to find pairwise JSD scores for
-//' @param word_list Vector containing all words to find JSD scores for
+//' @param word_list Vector containing all words that should be used to calculate JSD
 //' @param group Name of data frame column containing text group
 //' @param word Name of data frame column containing words
 //' @param n Name of data frame column containing word count in text group
@@ -134,6 +144,110 @@ DataFrame jsd(DataFrame text, CharacterVector group_list = CharacterVector::crea
   // Clear private variables
   clearVars();
 
+  return output;
+}
+
+// Exported partial JSD function
+//' Partial JSD
+//' @description Calculates the partial JSD score for each word between group pairings. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
+//' @param text Data frame containing data
+//' @param group_list Vector containing all groups to find pairwise JSD scores for
+//' @param word_list Vector containing all words to find JSD scores for
+//' @param group Name of data frame column containing text group
+//' @param word Name of data frame column containing words
+//' @param n Name of data frame column containing word count in text group
+//' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
+//' @examples
+//' # Load example Hansard 1820 dataset
+//' data(hansard_1820_example)
+//' head(hansard_1820_example)
+//'
+//' # Calculate Partial JSD for given words and groups
+//' output = partial_jsd(
+//'   hansard_1820_example,
+//'   group = "speaker",
+//'   group_list = c("Mr. Hume", "Mr. Brougham"),
+//'   word_list = c("house", "person")
+//' )
+//' head(output)
+//' @useDynLib dhmeasures
+//' @importFrom Rcpp evalCpp
+//' @exportPattern ^[[:alpha:]]+
+// [[Rcpp::export]]
+DataFrame partial_jsd(DataFrame text, CharacterVector group_list = CharacterVector::create(), CharacterVector word_list = CharacterVector::create(), String group = "group", String word = "word", String n = "n") {
+  // Set private variables to input values
+  Text_ = text;
+  Group_ = group;
+  Word_ = word;
+  Count_ = n;
+  if (word_list.size() == 0) {
+    // If word_list is empty, use all words
+    CharacterVector allWords = text[word];
+    WordList = unique(allWords);
+  } else {
+    // Else, use given words
+    WordList = word_list;
+  }
+  
+  // Initialize wordProbs
+  setWordProbs();
+  
+  // If not enough groups given, pick for user
+  if (group_list.size() < 2) {
+    // Get all unique groups
+    CharacterVector allGroups = Text_[Group_];
+    allGroups = unique(allGroups);
+    if (group_list.size() == 1) {
+      // If 1 group was given, set Group1 to given group
+      Group1 = group_list[0];
+      if (allGroups[0] == Group1) {
+        // If first group is Group1, set Group2 to second group
+        Group2 = allGroups[1];
+      } else {
+        // Else, set Group2 to first group
+        Group2 = allGroups[0];
+      }
+    } else {
+      // Else, use first two groups
+      Group1 = allGroups[0];
+      Group2 = allGroups[1];
+    }
+    
+    // Return results of JSD for selected pair
+    partialJsdPair();
+    // Clear private variables
+    clearVars();
+    
+    // Return results
+    return results_;
+  }
+  
+  // Initialze output data frame
+  DataFrame output = DataFrame::create();
+  // Loop through given groups
+  for (int i = 0; i < group_list.size(); i++) {
+    // Loop through groups after current group
+    for (int j = i + 1; j < group_list.size(); j++) {
+      String g1 = group_list[i];
+      String g2 = group_list[j];
+      /// Set groups 1 and 2 to current groups
+      Group1 = group_list[i];
+      Group2 = group_list[j];
+      // Calculate JSD scores for group pairing
+      partialJsdPair();
+      // Store JSD scores
+      CharacterVector names = results_.names();
+      String name = names[1];
+      output.push_back(results_[1], name);
+    }
+  }
+  
+  // Add word column to output
+  output.push_front(results_[0], "word");
+  
+  // Clear private variables
+  clearVars();
+  
   return output;
 }
 
@@ -267,4 +381,47 @@ void clearVars() {
   Word_ = "";
   Count_ = "";
   wordProbs.clear();
+}
+
+// Jensen-Shannon Divergence
+double calcPartialJSD(const double& p, const double& q) {
+  // If p or q is 0, return 0
+  if (p == 0 || q == 0) {
+    return 0;
+  }
+  // Find the midpoint between p and q
+  double r = (p + q) / 2;
+  // Calculate JSD
+  double jsd = 0.5 * (partialKLD(p, r) + partialKLD(q, r));
+  return jsd;
+}
+
+// Kullback-Leibler Divergence
+double partialKLD(const double& p, const double& q) {
+  // Calculate KLD
+  double kld = p * log(p / q);
+  return kld;
+}
+
+// Get JSD of one group pairing
+void partialJsdPair() {
+  // Calculate word probabilities
+  getProbabilites();
+  
+  // Calc partial JSD for each word in wordProbs
+  CharacterVector words;
+  NumericVector jsdScores;
+  for (const auto& itr : wordProbs) {
+    double jsd = calcPartialJSD(itr.second.first, itr.second.second);
+    jsdScores.push_back(jsd);
+    words.push_back(itr.first);
+  }
+  
+  // Use concatenated group names as column name
+  String name = Group1;
+  name += "_";
+  name += Group2;
+  
+  // Create results dataframe from vectors
+  results_ = DataFrame::create(Named("word") = words, Named(name) = jsdScores);
 }
