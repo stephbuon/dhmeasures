@@ -18,7 +18,7 @@ jsd(
 
 \item{group_list}{Vector containing all groups to find pairwise JSD scores for}
 
-\item{word_list}{Vector containing all words that should be used to calculate JSD}
+\item{word_list}{Vector containing all words to find JSD scores for}
 
 \item{group}{Name of data frame column containing text group}
 
@@ -30,7 +30,7 @@ jsd(
 Data frame containing a column containing unique words and columns for JSD scores for each group pair
 }
 \description{
-Calculates the JSD score between text groups. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
+Calculates the JSD score for each word between group pairings. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
 }
 \examples{
 # Load example Hansard 1820 dataset
