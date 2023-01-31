@@ -4,8 +4,12 @@
 #' @param group The name of the column(s) containing the grouping variable. If not defined, the text will not be grouped. Can be given as either a string or a vector of strings.
 #' @param text The name of the column containing the text that needs to be tokenized
 #' @return Data frame containing columns for the word, the group(s) and the count labeled as 'word', the group name, and 'n'
-#' @import dplyr
-#' @import tidytext
+#' @importFrom dplyr %>%
+#' @importFrom dplyr group_by
+#' @importFrom dplyr group_by_at
+#' @importFrom dplyr count
+#' @importFrom dplyr rename
+#' @importFrom tidytext unnest_tokens
 #' @examples 
 #' test = data.frame (
 #'   myText = c(
