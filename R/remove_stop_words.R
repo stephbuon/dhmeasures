@@ -15,7 +15,7 @@
 #' head(remove_stop_words(hansard_1820_example))
 
 remove_stop_words = function(data, words = "word", stop_words = dhmeasures::stop_word) {
-  # Reformat stopw_words
+  # Reformat stop_words
   stopwords.df = data.frame (
     stop_words
   )
