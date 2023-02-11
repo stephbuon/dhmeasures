@@ -4,7 +4,12 @@
 \alias{remove_stop_words}
 \title{Remove Stop Words}
 \usage{
-remove_stop_words(data, words = "word", stop_words = dhmeasures::stop_word)
+remove_stop_words(
+  data,
+  words = "word",
+  stop_words = dhmeasures::stop_word,
+  remove_numbers = TRUE
+)
 }
 \arguments{
 \item{data}{Data frame containing your data}
@@ -12,6 +17,8 @@ remove_stop_words(data, words = "word", stop_words = dhmeasures::stop_word)
 \item{words}{The name of the column where stop words should be searched for}
 
 \item{stop_words}{Vector of stop words. Uses dhmeasures::stop_word as the default}
+
+\item{remove_numbers}{Set to true (default) to remove all numeric values from the words column}
 }
 \value{
 Data frame with all prior data, but without rows containing stop words

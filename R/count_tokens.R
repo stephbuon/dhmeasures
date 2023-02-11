@@ -1,4 +1,4 @@
-#' Tokenize Counts
+#' Count Tokens
 #' @description Converts a data frame with columns for text and grouping variables into a data frame with each word and the count of each word in each group.
 #' @param data Data frame containing the raw data
 #' @param group The name of the column(s) containing the grouping variable. If not defined, the text will not be grouped. Can be given as either a string or a vector of strings.
@@ -22,9 +22,9 @@
 #'   )
 #' )
 #' 
-#' tokenize_counts(test, text = "myText", group = "myGroup")
+#' count_tokens(test, text = "myText", group = "myGroup")
 
-tokenize_counts = function(data, group = NA, text = "text") {
+count_tokens = function(data, group = NA, text = "text") {
   if (is.vector(group)) {
     newData = data %>%
       unnest_tokens(word, !!text) %>%
