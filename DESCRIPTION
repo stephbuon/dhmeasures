@@ -1,6 +1,6 @@
 Package: dhmeasures
 Title: Digital History Measures
-Version: 1.0
+Version: 1.0.0
 Authors@R: c(
 	person("Steph", "Buongiorno", email = "steph.buon@gmail.com", role = c("aut", "cre"),
                comment = c(ORCID = "0000-0002-6965-0787")),
@@ -12,10 +12,7 @@ URL: https://github.com/stephbuon/dhmeasures
 BugReports: https://github.com/stephbuon/dhmeasures/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
-Imports: 
-	Rcpp (>= 1.0.9),
-	dplyr,
-	tidytext
+Imports: Rcpp (>= 1.0.9)
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
