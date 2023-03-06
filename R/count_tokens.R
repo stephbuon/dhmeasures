@@ -25,14 +25,14 @@
 #' count_tokens(test, text = "myText", group = "myGroup")
 
 count_tokens = function(data, group = NA, text = "text") {
-  if (is.vector(group)) {
+  if (is.na(group)) {
+    newData = data %>%
+      unnest_tokens(word, !!text) %>%
+      count(word, sort = TRUE)
+  } else if (is.vector(group)) {
     newData = data %>%
       unnest_tokens(word, !!text) %>%
       group_by_at(group) %>%
-      count(word, sort = TRUE)
-  } else if (is.na(group)) {
-    newData = data %>%
-      unnest_tokens(word, !!text) %>%
       count(word, sort = TRUE)
   } else {
     newData = data %>%
