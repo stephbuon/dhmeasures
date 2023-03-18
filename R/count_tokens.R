@@ -9,6 +9,7 @@
 #' @importFrom dplyr group_by_at
 #' @importFrom dplyr count
 #' @importFrom dplyr rename
+#' @importFrom rlang :=
 #' @importFrom tidytext unnest_tokens
 #' @examples 
 #' test = data.frame (
@@ -25,16 +26,23 @@
 #' count_tokens(test, text = "myText", group = "myGroup")
 
 count_tokens = function(data, group = NA, text = "text") {
+  # Remove note
+  word = NULL
+  . = NULL
+  
   if (is.na(group)) {
+    # If group not defined, group by nothing
     newData = data %>%
       unnest_tokens(word, !!text) %>%
       count(word, sort = TRUE)
   } else if (is.vector(group)) {
+    # If group is a vector, group by all columns in vector
     newData = data %>%
       unnest_tokens(word, !!text) %>%
       group_by_at(group) %>%
       count(word, sort = TRUE)
   } else {
+    # Else, group by column group as string
     newData = data %>%
       unnest_tokens(word, !!text) %>%
       count(.[[group]], word, sort = TRUE) %>%
