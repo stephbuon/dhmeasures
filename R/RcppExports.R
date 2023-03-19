@@ -12,16 +12,15 @@
 #' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
 #' @examples
 #' \dontrun{
-#' # Load example Hansard 1820 dataset
-#' data(hansard_1820_example)
-#' head(hansard_1820_example)
+#' # Load example Hansard 1870 dataset
+#' data(hansard_1870_example)
+#' head(hansard_1870_example)
 #'
 #' # Calculate original JSD for given words and groups
 #' output = original_jsd(
-#'   hansard_1820_example,
+#'   hansard_1870_example,
 #'   group = "speaker",
-#'   group_list = c("Mr. Hume", "Mr. Brougham"),
-#'   word_list = c("house", "person")
+#'   group_list = c("MR. GLADSTONE", "MR. DISRAELI")
 #' )
 #' head(output)
 #' }
@@ -42,18 +41,19 @@ original_jsd <- function(text, group_list = as.character( c()), word_list = as.c
 #' @param n Name of data frame column containing word count in text group
 #' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
 #' @examples
-#' # Load example Hansard 1820 dataset
-#' data(hansard_1820_example)
-#' head(hansard_1820_example)
+#' \dontrun{
+#' # Load example Hansard 1870 dataset
+#' data(hansard_1870_example)
+#' head(hansard_1870_example)
 #'
 #' # Calculate JSD for given words and groups
 #' output = jsd(
-#'   hansard_1820_example,
+#'   hansard_1870_example,
 #'   group = "speaker",
-#'   group_list = c("Mr. Hume", "Mr. Brougham"),
-#'   word_list = c("house", "person")
+#'   group_list = c("MR. GLADSTONE", "MR. DISRAELI")
 #' )
 #' head(output)
+#' }
 #' @useDynLib dhmeasures
 #' @importFrom Rcpp evalCpp
 #' @exportPattern ^[[:alpha:]]+
@@ -73,15 +73,14 @@ jsd <- function(text, group_list = as.character( c()), word_list = as.character(
 #' @examples
 #' \dontrun{
 #' # Load example Hansard 1820 dataset
-#' data(hansard_1820_example)
-#' head(hansard_1820_example)
+#' data(hansard_1870_example)
+#' head(hansard_1870_example)
 #' 
 #' # Compute log likelihood
 #' output = log_likelihood(
-#'   hansard_1820_example, 
+#'   hansard_1870_example, 
 #'   group = "speaker", 
-#'   group_list = c("Mr. Hume", "Mr. Brougham"), 
-#'   word_list = c("house", "person")
+#'   group_list = c("MR. Gladstone", "MR. DISRAELI")
 #' )
 #' head(output)
 #' }

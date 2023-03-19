@@ -5,9 +5,9 @@
 #'
 #' @docType data
 #'
-#' @usage hansard_1820_example
+#' @usage hansard_1870_example
 #'
-#' @format A data frame with 1082539 rows and 3 variables:
+#' @format A data frame with 482923 rows and 3 variables:
 #'
 #' speaker
 #' The name of the speaker originally recorded in the transciptions of the debates.
@@ -21,10 +21,10 @@
 #' @keywords datasets
 #'
 #' @examples
-#' data(hansard_1820_example)
+#' data(hansard_1870_example)
 #'
 #' @references Buongiorno, Steph; Kalescky, Robert; Godat, Eric; Cerpa, Omar Alexander; Guldi, Jo (2021) 
 #'
-#' @source {../data/hansard_1820_example.RData}
+#' @source {../data/hansard_1870_example.RData}
 #'
-"hansard_1820_example"
+"hansard_1870_example"

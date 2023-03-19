@@ -34,16 +34,15 @@ Calculates the JSD score between text groups. To use this function, the user mus
 }
 \examples{
 \dontrun{
-# Load example Hansard 1820 dataset
-data(hansard_1820_example)
-head(hansard_1820_example)
+# Load example Hansard 1870 dataset
+data(hansard_1870_example)
+head(hansard_1870_example)
 
 # Calculate original JSD for given words and groups
 output = original_jsd(
-  hansard_1820_example,
+  hansard_1870_example,
   group = "speaker",
-  group_list = c("Mr. Hume", "Mr. Brougham"),
-  word_list = c("house", "person")
+  group_list = c("MR. GLADSTONE", "MR. DISRAELI")
 )
 head(output)
 }

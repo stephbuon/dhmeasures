@@ -52,15 +52,14 @@ void getGroupsWords();
 //' @examples
 //' \dontrun{
 //' # Load example Hansard 1820 dataset
-//' data(hansard_1820_example)
-//' head(hansard_1820_example)
+//' data(hansard_1870_example)
+//' head(hansard_1870_example)
 //' 
 //' # Compute log likelihood
 //' output = log_likelihood(
-//'   hansard_1820_example, 
+//'   hansard_1870_example, 
 //'   group = "speaker", 
-//'   group_list = c("Mr. Hume", "Mr. Brougham"), 
-//'   word_list = c("house", "person")
+//'   group_list = c("MR. Gladstone", "MR. DISRAELI")
 //' )
 //' head(output)
 //' }

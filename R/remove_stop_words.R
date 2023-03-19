@@ -9,11 +9,11 @@
 #' @importFrom dplyr anti_join
 #' @importFrom dplyr filter
 #' @examples 
-#' # Load example Hansard 1820 dataset
-#' data(hansard_1820_example)
-#' head(hansard_1820_example)
+#' # Load example Hansard 1870 dataset
+#' data(hansard_1870_example)
+#' head(hansard_1870_example)
 #' 
-#' head(remove_stop_words(hansard_1820_example))
+#' head(remove_stop_words(hansard_1870_example))
 
 remove_stop_words = function(data, words = "word", stop_words = dhmeasures::stop_word, remove_numbers = TRUE) {
   # Remove note
