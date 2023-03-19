@@ -57,6 +57,7 @@ void getProbabilites();
 //' @param n Name of data frame column containing word count in text group
 //' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
 //' @examples
+//' \dontrun{
 //' # Load example Hansard 1820 dataset
 //' data(hansard_1820_example)
 //' head(hansard_1820_example)
@@ -69,6 +70,7 @@ void getProbabilites();
 //'   word_list = c("house", "person")
 //' )
 //' head(output)
+//' }
 //' @useDynLib dhmeasures
 //' @importFrom Rcpp evalCpp
 //' @exportPattern ^[[:alpha:]]+

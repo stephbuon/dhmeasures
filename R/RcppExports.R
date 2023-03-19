@@ -11,6 +11,7 @@
 #' @param n Name of data frame column containing word count in text group
 #' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
 #' @examples
+#' \dontrun{
 #' # Load example Hansard 1820 dataset
 #' data(hansard_1820_example)
 #' head(hansard_1820_example)
@@ -23,6 +24,7 @@
 #'   word_list = c("house", "person")
 #' )
 #' head(output)
+#' }
 #' @useDynLib dhmeasures
 #' @importFrom Rcpp evalCpp
 #' @exportPattern ^[[:alpha:]]+
@@ -69,6 +71,7 @@ jsd <- function(text, group_list = as.character( c()), word_list = as.character(
 #' @param n Name of data frame column containing word count in text group
 #' @return Data frame containing a column containing unique words and columns for log likelihood scores for each group
 #' @examples
+#' \dontrun{
 #' # Load example Hansard 1820 dataset
 #' data(hansard_1820_example)
 #' head(hansard_1820_example)
@@ -81,6 +84,7 @@ jsd <- function(text, group_list = as.character( c()), word_list = as.character(
 #'   word_list = c("house", "person")
 #' )
 #' head(output)
+#' }
 #' @useDynLib dhmeasures
 #' @importFrom Rcpp evalCpp
 #' @exportPattern ^[[:alpha:]]+
