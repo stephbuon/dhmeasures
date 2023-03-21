@@ -11,7 +11,6 @@
 #' @param n Name of data frame column containing word count in text group
 #' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
 #' @examples
-#' \dontrun{
 #' # Load example Hansard 1870 dataset
 #' data(hansard_1870_example)
 #' head(hansard_1870_example)
@@ -20,10 +19,10 @@
 #' output = original_jsd(
 #'   hansard_1870_example,
 #'   group = "speaker",
-#'   group_list = c("MR. GLADSTONE", "MR. DISRAELI")
+#'   group_list = c("MR. GLADSTONE", "MR. DISRAELI"),
+#'   word_list = c("trade", "press", "industry")
 #' )
 #' head(output)
-#' }
 #' @useDynLib dhmeasures
 #' @importFrom Rcpp evalCpp
 #' @exportPattern ^[[:alpha:]]+
@@ -41,7 +40,6 @@ original_jsd <- function(text, group_list = as.character( c()), word_list = as.c
 #' @param n Name of data frame column containing word count in text group
 #' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
 #' @examples
-#' \dontrun{
 #' # Load example Hansard 1870 dataset
 #' data(hansard_1870_example)
 #' head(hansard_1870_example)
@@ -50,10 +48,10 @@ original_jsd <- function(text, group_list = as.character( c()), word_list = as.c
 #' output = jsd(
 #'   hansard_1870_example,
 #'   group = "speaker",
-#'   group_list = c("MR. GLADSTONE", "MR. DISRAELI")
+#'   group_list = c("MR. GLADSTONE", "MR. DISRAELI"),
+#'   word_list = c("trade", "press", "industry")
 #' )
 #' head(output)
-#' }
 #' @useDynLib dhmeasures
 #' @importFrom Rcpp evalCpp
 #' @exportPattern ^[[:alpha:]]+
@@ -71,7 +69,6 @@ jsd <- function(text, group_list = as.character( c()), word_list = as.character(
 #' @param n Name of data frame column containing word count in text group
 #' @return Data frame containing a column containing unique words and columns for log likelihood scores for each group
 #' @examples
-#' \dontrun{
 #' # Load example Hansard 1820 dataset
 #' data(hansard_1870_example)
 #' head(hansard_1870_example)
@@ -80,10 +77,10 @@ jsd <- function(text, group_list = as.character( c()), word_list = as.character(
 #' output = log_likelihood(
 #'   hansard_1870_example, 
 #'   group = "speaker", 
-#'   group_list = c("MR. Gladstone", "MR. DISRAELI")
+#'   group_list = c("MR. Gladstone", "MR. DISRAELI"),
+#'   word_list = c("trade", "press", "industry")
 #' )
 #' head(output)
-#' }
 #' @useDynLib dhmeasures
 #' @importFrom Rcpp evalCpp
 #' @exportPattern ^[[:alpha:]]+

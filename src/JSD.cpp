@@ -57,7 +57,6 @@ void getProbabilites();
 //' @param n Name of data frame column containing word count in text group
 //' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
 //' @examples
-//' \dontrun{
 //' # Load example Hansard 1870 dataset
 //' data(hansard_1870_example)
 //' head(hansard_1870_example)
@@ -66,10 +65,10 @@ void getProbabilites();
 //' output = original_jsd(
 //'   hansard_1870_example,
 //'   group = "speaker",
-//'   group_list = c("MR. GLADSTONE", "MR. DISRAELI")
+//'   group_list = c("MR. GLADSTONE", "MR. DISRAELI"),
+//'   word_list = c("trade", "press", "industry")
 //' )
 //' head(output)
-//' }
 //' @useDynLib dhmeasures
 //' @importFrom Rcpp evalCpp
 //' @exportPattern ^[[:alpha:]]+
@@ -159,7 +158,6 @@ DataFrame original_jsd(DataFrame text, CharacterVector group_list = CharacterVec
 //' @param n Name of data frame column containing word count in text group
 //' @return Data frame containing a column containing unique words and columns for JSD scores for each group pair
 //' @examples
-//' \dontrun{
 //' # Load example Hansard 1870 dataset
 //' data(hansard_1870_example)
 //' head(hansard_1870_example)
@@ -168,10 +166,10 @@ DataFrame original_jsd(DataFrame text, CharacterVector group_list = CharacterVec
 //' output = jsd(
 //'   hansard_1870_example,
 //'   group = "speaker",
-//'   group_list = c("MR. GLADSTONE", "MR. DISRAELI")
+//'   group_list = c("MR. GLADSTONE", "MR. DISRAELI"),
+//'   word_list = c("trade", "press", "industry")
 //' )
 //' head(output)
-//' }
 //' @useDynLib dhmeasures
 //' @importFrom Rcpp evalCpp
 //' @exportPattern ^[[:alpha:]]+

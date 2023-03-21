@@ -33,7 +33,6 @@ Data frame containing a column containing unique words and columns for JSD score
 Calculates the JSD score for each word between group pairings. To use this function, the user must provide a data frame with a column for words, a column for the text group, and a column for the count of the word in that group. The default column names are "word", "group", and "n", but these can be changed using the parameters word, group, and n. The default settings will calculate the JSD for all words between the first two groups in the data set. However, the user can provide a list of words using the word_list parameter and/or a list of groups using the group_list parameter. If more than two groups are given, the function will provide the JSD scores all all pairs of groups.
 }
 \examples{
-\dontrun{
 # Load example Hansard 1870 dataset
 data(hansard_1870_example)
 head(hansard_1870_example)
@@ -42,8 +41,8 @@ head(hansard_1870_example)
 output = jsd(
   hansard_1870_example,
   group = "speaker",
-  group_list = c("MR. GLADSTONE", "MR. DISRAELI")
+  group_list = c("MR. GLADSTONE", "MR. DISRAELI"),
+  word_list = c("trade", "press", "industry")
 )
 head(output)
-}
 }

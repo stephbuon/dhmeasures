@@ -50,7 +50,6 @@ void getGroupsWords();
 //' @param n Name of data frame column containing word count in text group
 //' @return Data frame containing a column containing unique words and columns for log likelihood scores for each group
 //' @examples
-//' \dontrun{
 //' # Load example Hansard 1820 dataset
 //' data(hansard_1870_example)
 //' head(hansard_1870_example)
@@ -59,10 +58,10 @@ void getGroupsWords();
 //' output = log_likelihood(
 //'   hansard_1870_example, 
 //'   group = "speaker", 
-//'   group_list = c("MR. Gladstone", "MR. DISRAELI")
+//'   group_list = c("MR. Gladstone", "MR. DISRAELI"),
+//'   word_list = c("trade", "press", "industry")
 //' )
 //' head(output)
-//' }
 //' @useDynLib dhmeasures
 //' @importFrom Rcpp evalCpp
 //' @exportPattern ^[[:alpha:]]+
