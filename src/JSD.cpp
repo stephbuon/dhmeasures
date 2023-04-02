@@ -43,8 +43,8 @@ void setWordProbs();
 void clearVars();
 // Find the midpoint between two probability distributions
 vector<double> findMidpoint(vector<double>&, vector<double>&);
-// Calculate word probabilites
-void getProbabilites();
+// Calculate word probabilities
+void getProbabilities();
 
 // Exported original JSD function
 //' Original JSD
@@ -294,8 +294,8 @@ vector<double> findMidpoint(vector<double>& P, vector<double>& Q) {
   return mid;
 }
 
-// Calculate word probabilites
-void getProbabilites() {
+// Calculate word probabilities
+void getProbabilities() {
   // Initialize ints for group counts
   int count1 = 0;
   int count2 = 0;
@@ -307,27 +307,27 @@ void getProbabilites() {
 
   // Loop through Text_ dataframe
   for (int i = 0; i < Text_.nrows(); i++) {
-    // Only include word in WordList
-    if (find(WordList.begin(), WordList.end(), allWords[i]) != WordList.end()) {
-      // Check if row group is either Group1 or Group2
-      if (allGroups[i] == Group1) {
+    // Update group and word counts
+    if (allGroups[i] == Group1) {
+      // Only include word in WordList
+      if (find(WordList.begin(), WordList.end(), allWords[i]) != WordList.end()) {
         // Set word count in group
         wordProbs[allWords[i]].first = allCounts[i];
-      } else if (allGroups[i] == Group2) {
-        // Set word count in group
-        wordProbs[allWords[i]].second = allCounts[i];
       }
-    }
-    // Update group counts
-    if (allGroups[i] == Group1) {
+      
       // Update group 1 count
       count1 += allCounts[i];
     } else if (allGroups[i] == Group2) {
+      // Only include word in WordList
+      if (find(WordList.begin(), WordList.end(), allWords[i]) != WordList.end()) {
+        // Set word count in group
+        wordProbs[allWords[i]].second = allCounts[i];
+      }
+      
       // Update group 2 count
       count2 += allCounts[i];
     }
   }
-
   // Loop through wordProbs
   for (auto& itr : wordProbs) {
     // Divide each count by total count for that group
@@ -339,7 +339,7 @@ void getProbabilites() {
 // Calculate the JSD score for a group pairing
 void originalJsdPair() {
   // Calculate word probabilities
-  getProbabilites();
+  getProbabilities();
 
   // Convert wordProbs to two vectors of probabilities
   vector<double> dist1;
@@ -407,7 +407,7 @@ double KLD(const double& p, const double& q) {
 // Get JSD of one group pairing
 void jsdPair() {
   // Calculate word probabilities
-  getProbabilites();
+  getProbabilities();
   
   // Calc JSD for each word in wordProbs
   CharacterVector words;

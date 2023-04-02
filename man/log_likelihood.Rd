@@ -41,7 +41,7 @@ head(hansard_1870_example)
 output = log_likelihood(
   hansard_1870_example, 
   group = "speaker", 
-  group_list = c("MR. Gladstone", "MR. DISRAELI"),
+  group_list = c("MR. GLADSTONE", "MR. DISRAELI"),
   word_list = c("trade", "press", "industry")
 )
 head(output)
