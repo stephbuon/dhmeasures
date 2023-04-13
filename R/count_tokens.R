@@ -30,24 +30,21 @@ count_tokens = function(data, group = NA, text = "text") {
   word = NULL
   . = NULL
   
-  if (is.na(group)) {
+  if (is.na(group)[1]) {
     # If group not defined, group by nothing
     newData = data %>%
       unnest_tokens(word, !!text) %>%
       count(word, sort = TRUE)
-  } else if (is.vector(group)) {
-    # If group is a vector, group by all columns in vector
-    newData = data %>%
-      unnest_tokens(word, !!text) %>%
-      group_by_at(group) %>%
-      count(word, sort = TRUE)
   } else {
-    # Else, group by column group as string
-    newData = data %>%
+    # Define the columns to keep
+    cols = c(group, text)
+    # Group by all kept columns
+    newData = data[, cols] %>%
       unnest_tokens(word, !!text) %>%
-      count(.[[group]], word, sort = TRUE) %>%
-      rename(!!group := ".[[group]]")
-  } 
+      group_by_all() %>%
+      count(word, sort = TRUE) %>%
+      ungroup()
+  }
   
   newData = as.data.frame(newData)
   return(newData)
