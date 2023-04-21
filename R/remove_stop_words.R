@@ -9,11 +9,21 @@
 #' @importFrom dplyr anti_join
 #' @importFrom dplyr filter
 #' @examples 
-#' # Load example Hansard 1870 dataset
-#' data(hansard_1870_example)
-#' head(hansard_1870_example)
+#' test = data.frame (
+#'   myText = c(
+#'     "Hello! This is the first sentence I am using to test this function!",
+#'     "This is the second sentence!"
+#'   ),
+#'   myGroup = c(
+#'     "group1",
+#'     "group2"
+#'   )
+#' )
 #' 
-#' head(remove_stop_words(hansard_1870_example))
+#' test2 = count_tokens(test, text = "myText", group = "myGroup")
+#' test2
+#' 
+#' remove_stop_words(test2)
 
 remove_stop_words = function(data, words = "word", stop_words = dhmeasures::stop_word, remove_numbers = TRUE) {
   # Remove note
@@ -27,15 +37,16 @@ remove_stop_words = function(data, words = "word", stop_words = dhmeasures::stop
   
   # Remove numbers from words column
   if (remove_numbers) {
-    data[[words]] = gsub("[0-9]", "", data[[words]])
+    data = data %>%
+      filter(!grepl("[0-9]", .[[words]]))
   }
   
   # Remove stopwords and empty words (including fully numeric)
-  newData = data %>%
+  data = data %>%
     anti_join(stopwords.df, by = words) %>%
     filter(.[[words]] != "")
   
-  return(newData)
+  return(data)
 }
 
 

@@ -7,7 +7,7 @@ Authors@R: c(
 	person("Steph", "Buongiorno", email = "steph.buon@gmail.com", role = c("aut"),
                comment = c(ORCID = "0000-0002-6965-0787")))
 Maintainer: Steph Buongiorno <steph.buon@gmail.com>
-Description: Provides statistical functions to aid in the analysis of contemporary and historical corpora. These transparent functions may be useful to anyone, and were designed with the social sciences and humanities in mind. The JSD and Original JSD functions expand on existing functions, by calculating the JSD for distributions of words in text groups for all pairwise groups provided. The Log Likelihood function is inspired by the work of digital historian Jo Guldi. Also includes helper functions that can count word frequency in each text grouping, and remove stop words. 
+Description: Provides statistical functions to aid in the analysis of contemporary and historical corpora. These transparent functions may be useful to anyone, and were designed with the social sciences and humanities in mind. The JSD and Original JSD functions expand on existing functions, by calculating the JSD for distributions of words in text groups for all pairwise groups provided (Drost (2018) <doi:10.21105/joss.00765>). The Log Likelihood function is inspired by the work of digital historian Jo Guldi (Guldi 2022 <https://github.com/joguldi/digital-history>). Also includes helper functions that can count word frequency in each text grouping, and remove stop words. 
 URL: https://github.com/stephbuon/dhmeasures
 BugReports: https://github.com/stephbuon/dhmeasures/issues
 License: MIT + file LICENSE

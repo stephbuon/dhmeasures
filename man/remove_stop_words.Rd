@@ -27,9 +27,19 @@ Data frame with all prior data, but without rows containing stop words
 Remove stop words and fully numeric words from a column in a dataframe that contains words. It is assumed that the text has been tokenized (see dhmeasures::tokenize_counts) prior to using this function.
 }
 \examples{
-# Load example Hansard 1870 dataset
-data(hansard_1870_example)
-head(hansard_1870_example)
+test = data.frame (
+  myText = c(
+    "Hello! This is the first sentence I am using to test this function!",
+    "This is the second sentence!"
+  ),
+  myGroup = c(
+    "group1",
+    "group2"
+  )
+)
 
-head(remove_stop_words(hansard_1870_example))
+test2 = count_tokens(test, text = "myText", group = "myGroup")
+test2
+
+remove_stop_words(test2)
 }
