@@ -15,8 +15,7 @@ Encoding: UTF-8
 Imports:
     Rcpp (>= 1.0.9),
     dplyr,
-    tidytext,
-    rlang
+    tidytext
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1

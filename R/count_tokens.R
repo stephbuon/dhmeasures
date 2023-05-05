@@ -6,10 +6,9 @@
 #' @return Data frame containing columns for the word, the group(s) and the count labeled as 'word', the group name, and 'n'
 #' @importFrom dplyr %>%
 #' @importFrom dplyr group_by
-#' @importFrom dplyr group_by_at
+#' @importFrom dplyr group_by_all
+#' @importFrom dplyr ungroup
 #' @importFrom dplyr count
-#' @importFrom dplyr rename
-#' @importFrom rlang :=
 #' @importFrom tidytext unnest_tokens
 #' @examples 
 #' test = data.frame (
