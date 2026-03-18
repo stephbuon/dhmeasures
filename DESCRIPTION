@@ -18,6 +18,6 @@ Imports:
     tidytext
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.3
 LazyData: true
 Depends: R (>= 3.5.0)
